@@ -4,6 +4,7 @@ namespace Drupal\test_achievements;
 
 /**
  * Class AchievementsDataService.
+ * Сервис для имитации получения данных
  */
 class AchievementsDataService {
 
