@@ -1,0 +1,155 @@
+<?php
+
+/**
+ * @file
+ * Contains test_achievements.module.
+ */
+
+/**
+ * Implements hook_cron().
+ */
+function test_achievements_cron(){
+  // Получить данные от сервиса
+  $achievements_data_service = \Drupal::service("test_achievements.achievements_data");
+  $achievements_data = $achievements_data_service->getAchievementsData();
+  $service_sync_id = $achievements_data['sync_id'];
+
+  // получить значение sync_id из таблицы
+  $query = \Drupal::database()->select('api_players_achievements', 'apa');
+  $query->addField('apa', 'sync_id');
+  //$query->condition('nfd.nid', 1);
+  $table_sync_id = $query->execute()->fetchField();
+
+  // если значение sync_id полученное от сервиса не совпадает со значением из таблицы, то необходимо обновить
+  // данные таблицы данными по sync_id от сервиса
+  if ($service_sync_id != $table_sync_id) {
+    // Обновить записи
+    $query = \Drupal::database()->update('api_players_achievements');
+    $query->fields([
+      'sync_id' => $service_sync_id,
+    ]);
+    //$query->condition('field_4', $value_4);
+    $query->execute();
+  }
+}
+
+
+function test_achievements_views_data() {
+
+  $data['api_players_achievements']['table']['group'] = t('Achievements table');
+
+  // Define this as a base table – a table that can be described in itself by
+  // views (and not just being brought in as a relationship). In reality this
+  // is not very useful for this table, as it isn't really a distinct object of
+  // its own, but it makes a good example.
+  $data['api_players_achievements']['table']['base'] = array(
+    'field' => 'player_id', // This is the identifier field for the view.
+    'title' => t('Achievements table'),
+    'help' => t('Achievements table'),
+    'weight' => -10,
+  );
+
+
+  // Example numeric text field.
+  $data['api_players_achievements']['player_id'] = array(
+    'title' => t('Player id'),
+    'help' => t('Player id.'),
+    'field' => array(
+      'id' => 'standard',
+    ),
+    'sort' => array(
+      'id' => 'standard',
+    ),
+    'filter' => array(
+      'id' => 'string',
+    ),
+    'argument' => array(
+      'id' => 'string',
+    ),
+  );
+
+  // Example plain text field.
+  $data['api_players_achievements']['achievement_date'] = array(
+    'title' => t('Achievement date field'),
+    'help' => t('Achievement date field'),
+    'field' => array(
+      'id' => 'standard',
+    ),
+    'sort' => array(
+      'id' => 'standard',
+    ),
+    'filter' => array(
+      'id' => 'string',
+    ),
+    'argument' => array(
+      'id' => 'string',
+    ),
+  );
+
+  // Example plain text field.
+  $data['api_players_achievements']['achievement_name'] = array(
+    'title' => t('Achievement name field'),
+    'help' => t('Achievement name field'),
+    'field' => array(
+      'id' => 'standard',
+    ),
+    'sort' => array(
+      'id' => 'standard',
+    ),
+    'filter' => array(
+      'id' => 'string',
+    ),
+    'argument' => array(
+      'id' => 'string',
+    ),
+  );
+
+  // Example plain text field.
+  $data['api_players_achievements']['achievement_competition_name'] = array(
+    'title' => t('Achievement competition name field'),
+    'help' => t('Achievement competition name field'),
+    'field' => array(
+      'id' => 'standard',
+    ),
+    'sort' => array(
+      'id' => 'standard',
+    ),
+    'filter' => array(
+      'id' => 'string',
+    ),
+    'argument' => array(
+      'id' => 'string',
+    ),
+  );
+
+  // Example numeric text field.
+  $data['api_players_achievements']['achievement_sort'] = array(
+    'title' => t('Achievement sort'),
+    'help' => t('Achievement sort.'),
+    'field' => array(
+      'id' => 'numeric',
+    ),
+    'filter' => array(
+      'id' => 'numeric',
+    ),
+    'sort' => array(
+      'id' => 'standard',
+    ),
+  );
+
+  $data['api_players_achievements']['sync_id'] = array(
+    'title' => t('Sync id'),
+    'help' => t('Sync id.'),
+    'field' => array(
+      'id' => 'numeric',
+    ),
+    'filter' => array(
+      'id' => 'numeric',
+    ),
+    'sort' => array(
+      'id' => 'standard',
+    ),
+  );
+
+  return $data;
+}

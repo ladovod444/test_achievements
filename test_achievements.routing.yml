@@ -1,0 +1,7 @@
+d8.test:
+  path: '/test-achievements'
+  defaults:
+    _title: 'Achievements'
+    _controller: '\Drupal\test_achievements\Controller\AchievementsController::display'
+  requirements:
+      _permission: 'access content'

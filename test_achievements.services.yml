@@ -1,0 +1,4 @@
+services:
+  test_achievements.achievements_data:
+    class: Drupal\test_achievements\AchievementsDataService
+    arguments: []

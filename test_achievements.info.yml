@@ -1,0 +1,6 @@
+name: 'Achievements'
+description: 'Test module for Achievements data'
+core: 8.x
+type: module
+package: 'Custom'
+version: '8.x-1.0'
