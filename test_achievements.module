@@ -33,8 +33,10 @@ function test_achievements_cron(){
   }
 }
 
-
-function test_achievements_views_data() {
+/**
+ * Implements hook_views_data().
+ */
+function test_achievements_views_data() {  
 
   $data['api_players_achievements']['table']['group'] = t('Achievements table');
 
@@ -49,8 +51,6 @@ function test_achievements_views_data() {
     'weight' => -10,
   );
 
-
-  // Example numeric text field.
   $data['api_players_achievements']['player_id'] = array(
     'title' => t('Player id'),
     'help' => t('Player id.'),
@@ -68,7 +68,6 @@ function test_achievements_views_data() {
     ),
   );
 
-  // Example plain text field.
   $data['api_players_achievements']['achievement_date'] = array(
     'title' => t('Achievement date field'),
     'help' => t('Achievement date field'),
@@ -86,7 +85,6 @@ function test_achievements_views_data() {
     ),
   );
 
-  // Example plain text field.
   $data['api_players_achievements']['achievement_name'] = array(
     'title' => t('Achievement name field'),
     'help' => t('Achievement name field'),
@@ -104,7 +102,6 @@ function test_achievements_views_data() {
     ),
   );
 
-  // Example plain text field.
   $data['api_players_achievements']['achievement_competition_name'] = array(
     'title' => t('Achievement competition name field'),
     'help' => t('Achievement competition name field'),
@@ -122,7 +119,6 @@ function test_achievements_views_data() {
     ),
   );
 
-  // Example numeric text field.
   $data['api_players_achievements']['achievement_sort'] = array(
     'title' => t('Achievement sort'),
     'help' => t('Achievement sort.'),
